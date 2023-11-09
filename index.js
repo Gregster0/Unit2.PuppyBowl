@@ -88,7 +88,7 @@ const postPuppy = async(pup) => {
 
 
 // Create an event listener to add a puppy to the api based on the results of the form
-puppyForm.addEventListener(`submit`, (event) => {
+puppyForm.addEventListener(`submit`, async (event) => {
     event.preventDefault();
     const newPup = {};
     newPup.name = puppyForm.elements[0].value;
@@ -96,7 +96,7 @@ puppyForm.addEventListener(`submit`, (event) => {
     newPup.status = puppyForm.elements[2].value;
     newPup.id = Math.floor(Math.random() * 1000)
     newPup.imageUrl = `https://upload.wikimedia.org/wikipedia/commons/d/df/Doge_homemade_meme.jpg`
-    postPuppy(newPup)
+    await postPuppy(newPup)
     getPuppies()
     })
 
