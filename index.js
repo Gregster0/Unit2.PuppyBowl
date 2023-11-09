@@ -6,7 +6,6 @@
 const state = {
     puppyDB: [],
     puppyDisplay: [],
-    puppySingle: {}
 }
 
 // create variables as needed to access html elements
@@ -16,17 +15,47 @@ const puppyUl = document.querySelector('ul');
 
 //Create a render function to render puppies based on the database
 const render =  () => {
-    let displayText = ""
+    main.innerHTML = ""
     state.puppyDB.forEach(pup => {
-        displayText += `<section>
-                        <img src="${pup.imageUrl}" alt="${pup.breed}"/>
-                        <h2>${pup.name}</h2>
-                        <h2>Breed: ${pup.breed}</h2>
-                        <h2>Status: ${pup.status}</h2>
-                        <button>More Info!</button>
-                        </section>`
-    })
-    main.innerHTML = displayText;
+        /*    displayText += `<section>
+                            <img src="${pup.imageUrl}" alt="${pup.breed}"/>
+                            <h2>${pup.name}</h2>
+                            <h2>Breed: ${pup.breed}</h2>
+                            <h2>Status: ${pup.status}</h2>
+                            <button>More Info!</button>
+                            </section>`*/
+            const section = document.createElement(`section`);
+            section.innerHTML = `<img src="${pup.imageUrl}" alt="${pup.breed}"/>
+                                <h2>${pup.name}</h2>
+                                <h2>Breed: ${pup.breed}</h2>
+                                <h2>Status: ${pup.status}</h2>`
+            const button = document.createElement(`button`);
+            button.textContent = "More Info";
+            button.addEventListener("click", (event) => {
+                event.preventDefault();
+                console.log(pup);
+                main.innerHTML = ""
+                const descPage = document.createElement(`section`);
+                descPage.innerHTML = `<h1>Description Page</h1>
+                <img src="${pup.imageUrl}" alt="${pup.breed}"/>
+                <h2>${pup.name}</h2>
+                <h2>Breed: ${pup.breed}</h2>
+                <h2>Status: ${pup.status}</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae diam laoreet, tincidunt arcu in, placerat lectus. Donec vestibulum quam vitae sapien mattis, finibus efficitur nisi porttitor. In varius luctus ullamcorper. Nulla porta rhoncus malesuada. Etiam efficitur maximus urna. Sed vulputate, est id egestas varius, augue augue euismod mauris, a sagittis urna augue vel felis. Integer scelerisque iaculis cursus. Duis hendrerit ligula ipsum. Pellentesque et imperdiet magna. Proin risus leo, aliquam in tortor vulputate, facilisis pellentesque mauris. Donec non felis hendrerit, mattis risus et, fringilla ante. Nullam ac dictum tortor. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ultrices justo ut nibh porttitor, blandit ultrices ante commodo. Aliquam erat volutpat. </p>
+                `
+                const descButton = document.createElement(`button`);
+                descButton.textContent = "Go Back";
+                descButton.addEventListener("click", (event) => {
+                    event.preventDefault();
+                    render()
+                })
+                descPage.append(descButton);
+                main.append(descPage);
+            })
+            section.append(button);
+            main.append(section)
+        })
+
 }
 
 //create a function to fetch the puppy database from the api
