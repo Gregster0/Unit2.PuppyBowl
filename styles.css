@@ -1,2 +1,11 @@
 *{
+    text-align: center;
+}
+
+section{
+    border: solid;
+}
+
+img{
+    max-width: 60vw;
 }
